@@ -67,7 +67,8 @@ const handler: Handler = async (event) => {
       };
     }
 
-    const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY || '');
+    console.log('Postmark API Key:', process.env.POSTMARK_API_KEY); // Add this for debugging
+    const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY || ''); 
 
     const emailContent = `
       <html>
