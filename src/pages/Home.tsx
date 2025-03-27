@@ -241,7 +241,7 @@ const Home: React.FC<HomeProps> = ({ onBookingClick }) => {
               <h2 className="text-2xl font-bold mb-6 text-center">No Love Lost Summer Release Party</h2>
               {isIframeLoading && (
                 <div className="text-center text-white mb-4">
-                  Please wait while the content loads...
+                  Almost ready to drop the beats! Hang tight...
                 </div>
               )}
               <iframe 
