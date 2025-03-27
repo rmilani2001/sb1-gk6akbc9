@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { X } from 'lucide-react';
 
 interface ModalProps {
@@ -9,13 +9,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, iframeSrc }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
   if (!isOpen) return null;
-
-  const handleIframeLoad = () => {
-    setIsLoading(false);
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -33,16 +27,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, iframeSrc }) =
           </button>
         </div>
         <div className="p-6">
-          {isLoading && (
-            <div className="text-center text-white mb-4">
-              Please wait while the content loads...
-            </div>
-          )}
           {iframeSrc ? (
             <iframe
               src={iframeSrc}
-              onLoad={handleIframeLoad}
-              className={`w-full h-[70vh] rounded ${isLoading ? 'hidden' : ''}`}
+              className="w-full h-[70vh] rounded"
               title="Modal Content"
             />
           ) : (
