@@ -104,7 +104,7 @@ const handler: Handler = async (event) => {
       ReplyTo: email,
       Subject: `New Booking Request - ${eventType}`,
       HtmlBody: emailContent,
-      MessageStream: 'outbound'
+      MessageStream: 'transactional'
     });
 
     return {
