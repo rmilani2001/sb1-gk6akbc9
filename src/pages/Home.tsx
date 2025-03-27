@@ -11,6 +11,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ onBookingClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isIframeLoading, setIsIframeLoading] = useState(true); // State to track iframe loading
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -81,6 +82,10 @@ const Home: React.FC<HomeProps> = ({ onBookingClick }) => {
     };
   }, []);
 
+  const handleIframeLoad = () => {
+    setIsIframeLoading(false); // Set loading to false when iframe finishes loading
+  };
+
   return (
     <div className="relative min-h-screen">
       <Helmet>
@@ -103,9 +108,22 @@ const Home: React.FC<HomeProps> = ({ onBookingClick }) => {
               Elevating Napa & Sonoma's cocktail hours with sophisticated house vibes
             </p>
             <div className="flex flex-col items-center space-y-6">
-              <div className="flex space-x-4">
+                <div className="flex space-x-4">
                 <button 
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => {
+                  setIsModalOpen(true);
+                  setTimeout(() => {
+                    const iframe = document.querySelector('iframe');
+                    if (iframe) {
+                    iframe.addEventListener('load', () => {
+                      const loadingMessage = document.getElementById('loading-message');
+                      if (loadingMessage) {
+                      loadingMessage.style.display = 'none';
+                      }
+                    });
+                    }
+                  }, 100);
+                  }}
                   className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:opacity-90 transition-opacity flex items-center space-x-2"
                 >
                   <Play className="w-5 h-5" />
@@ -221,13 +239,19 @@ const Home: React.FC<HomeProps> = ({ onBookingClick }) => {
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <div className="pt-8">
               <h2 className="text-2xl font-bold mb-6 text-center">No Love Lost Summer Release Party</h2>
+              {isIframeLoading && (
+                <div className="text-center text-white mb-4">
+                  Please wait while the content loads...
+                </div>
+              )}
               <iframe 
                 width="100%" 
                 height="180" 
                 src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2FMMMilani%2Fno-love-lost-summer-release-party-9-5-2024%2F" 
                 frameBorder="0"
                 title="No Love Lost Summer Release Party"
-                className="rounded"
+                className={`rounded ${isIframeLoading ? 'hidden' : ''}`} // Hide iframe while loading
+                onLoad={handleIframeLoad} // Triggered when iframe finishes loading
               />
             </div>
           </Modal>
