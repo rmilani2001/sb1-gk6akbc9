@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+<<<<<<< HEAD
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}'
@@ -15,6 +16,13 @@ export default {
       animation: {
         'gradient': 'gradient 8s linear infinite',
         'float': 'float 6s ease-in-out infinite',
+=======
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      animation: {
+        'gradient': 'gradient 8s linear infinite',
+>>>>>>> 4372c8f0822ccf4459190fc6ac3f00b975e2f68d
       },
       keyframes: {
         gradient: {
@@ -27,6 +35,7 @@ export default {
             'background-position': 'right center'
           },
         },
+<<<<<<< HEAD
         float: {
           '0%, 100%': {
             transform: 'translateY(0)',
@@ -48,6 +57,8 @@ export default {
             },
           },
         },
+=======
+>>>>>>> 4372c8f0822ccf4459190fc6ac3f00b975e2f68d
       },
     },
   },
